@@ -1,9 +1,11 @@
 import java.util.*;
 import java.io.*;
+
 import javax.imageio.*;
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 import java.awt.image.*;
+
 
 public class AtlasGenerator
 {	
@@ -101,11 +103,22 @@ public class AtlasGenerator
 		}
 		
 		count = 0;
+		try {
+			BufferedWriter atlasConfig = new BufferedWriter(new FileWriter(name + ".xml"));
 		
-		for(Texture texture : textures)
-		{
-			System.out.println("Writing atlas: " + name + (++count));
-			texture.Write(name + count, fileNameOnly, unitCoordinates, width, height);
+			atlasConfig.write("<?xml version='1.0' encoding='UTF-8'?>\n");
+			atlasConfig.write("<Atlas>");
+			
+			for(Texture texture : textures)
+			{
+				System.out.println("Writing atlas: " + name + (++count));
+				texture.Write(atlasConfig, name + count, fileNameOnly, unitCoordinates, width, height);
+			}			
+			atlasConfig.write("</Atlas>");
+			
+			atlasConfig.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -284,34 +297,46 @@ public class AtlasGenerator
 			return true;	
 		}
 		
-		public void Write(String name, boolean fileNameOnly, boolean unitCoordinates, int width, int height)
+		public void Write(BufferedWriter atlasConfig, String name, boolean fileNameOnly, boolean unitCoordinates, int width, int height)
 		{			
 			try
 			{
 				ImageIO.write(image, "png", new File(name + ".png"));
 				
-				BufferedWriter atlas = new BufferedWriter(new FileWriter(name + ".txt"));
+				int count = 0;
 				
+				atlasConfig.write("<TextureAtlas imagePath='" + name + ".png'>\n");				
 				for(Map.Entry<String, Rectangle> e : rectangleMap.entrySet())
 				{
+					count ++;
 					Rectangle r = e.getValue();
 					String keyVal = e.getKey();
 					if (fileNameOnly)
 						keyVal = keyVal.substring(keyVal.lastIndexOf('/') + 1);
 					if (unitCoordinates)
 					{
-						atlas.write(keyVal + " " + r.x/(float)width + " " + r.y/(float)height + " " + r.width/(float)width + " " + r.height/(float)height);
+						atlasConfig.write(String.format("<SubTexture name='%s' x='%d'  y='%d' width='%d' height='%d'/>\n",
+								keyVal,
+								r.x/width,
+								r.y/height,
+								r.width/width,
+								r.height/height));
 					}
-					else
-						atlas.write(keyVal + " " + r.x + " " + r.y + " " + r.width + " " + r.height);
-					atlas.newLine();
+					else {
+						atlasConfig.write(String.format("<SubTexture name='%s' x='%d'  y='%d' width='%d' height='%d'/>\n",
+								keyVal,
+								r.x,
+								r.y,
+								r.width,
+								r.height));
+					}					
 				}
+				atlasConfig.write("</TextureAtlas>\n");
 				
-				atlas.close();
 			}
 			catch(IOException e)
 			{
-				
+				e.printStackTrace();
 			}
 		}
 	}
