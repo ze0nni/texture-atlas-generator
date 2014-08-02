@@ -2,7 +2,7 @@ h1. Texture Atlas Generator
 
 A texture atlas generator/packer written in one single Java file. Currently it only supports loading and saving of PNG textures, this can easily be extended to other formats supported by Java's ImageIO class.
 
-Besides the texture atlas, a .txt file is also generated with texture coords for all the textures.
+Besides the texture atlas, a .xml file is also generated with texture coords for all the textures.
 
 Examples and further details are available at "my website":http://lukasz.dk/2011/04/18/texture-atlas-generator/
 
@@ -16,11 +16,11 @@ pre. javac AtlasGenerator.java
 
 h2. Usage
 
-pre. AtlasGenerator <name> <width> <height> <directory>
+pre. AtlasGenerator <name> <width> <height> <padding> <ignorPaths> <unitCoordinates>  <directory>
 
 h2. Example
 
-pre. AtlasGenerator atlas 2048 2048 images
+pre. AtlasGenerator atlas 2048 2048 2 0 1 images
 
 This will take all the PNG files in the _images_ directory next to application and pack them into one or more 2048x2048 atlases named "atlas1.png" to "atlasN.png", where N is the number of atlases generated. More than one atlas is generated if the PNG textures do not fit into one atlas.
 
