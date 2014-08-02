@@ -315,12 +315,12 @@ public class AtlasGenerator
 						keyVal = keyVal.substring(keyVal.lastIndexOf('/') + 1);
 					if (unitCoordinates)
 					{
-						atlasConfig.write(String.format("<SubTexture name='%s' x='%d'  y='%d' width='%d' height='%d'/>\n",
+						atlasConfig.write(String.format("<SubTexture name='%s' x='%f'  y='%f' width='%f' height='%f'/>\n",
 								keyVal,
-								r.x/width,
-								r.y/height,
-								r.width/width,
-								r.height/height));
+								(float)r.x/width,
+								(float)r.y/height,
+								(float)r.width/width,
+								(float)r.height/height));
 					}
 					else {
 						atlasConfig.write(String.format("<SubTexture name='%s' x='%d'  y='%d' width='%d' height='%d'/>\n",

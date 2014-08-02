@@ -20,15 +20,15 @@ pre. AtlasGenerator <name> <width> <height> <padding> <ignorPaths> <unitCoordina
 
 h2. Example
 
-pre. AtlasGenerator atlas 2048 2048 2 0 1 images
+pre. AtlasGenerator atlas 2048 2048 2 0 1 objects
 
-This will take all the PNG files in the _images_ directory next to application and pack them into one or more 2048x2048 atlases named "atlas1.png" to "atlasN.png", where N is the number of atlases generated. More than one atlas is generated if the PNG textures do not fit into one atlas.
+This will take all the PNG files in the _objects_ directory next to application and pack them into one or more 2048x2048 atlases named "atlas1.png" to "atlasN.png", where N is the number of atlases generated. More than one atlas is generated if the PNG textures do not fit into one atlas.
 
 
 pre. <?xml version='1.0' encoding='UTF-8'?>
 <Atlas><TextureAtlas imagePath='objects1.png'>
-<SubTexture name='objects/buss_1' x='0'  y='0' width='0' height='0'/>
-<SubTexture name='objects/granny_1' x='0'  y='0' width='0' height='0'/>
-<SubTexture name='objects/sheep_1' x='0'  y='0' width='0' height='0'/>
+<SubTexture name='objects/buss_1' x='0'  y='0' width='466' height='221'/>
+<SubTexture name='objects/granny_1' x='468'  y='0' width='112' height='175'/>
+<SubTexture name='objects/sheep_1' x='582'  y='0' width='118' height='89'/>
 </TextureAtlas>
 </Atlas>
