@@ -25,6 +25,10 @@ pre. AtlasGenerator atlas 2048 2048 2 0 1 images
 This will take all the PNG files in the _images_ directory next to application and pack them into one or more 2048x2048 atlases named "atlas1.png" to "atlasN.png", where N is the number of atlases generated. More than one atlas is generated if the PNG textures do not fit into one atlas.
 
 
-
-
-
+pre. <?xml version='1.0' encoding='UTF-8'?>
+pre. <Atlas><TextureAtlas imagePath='objects1.png'>
+pre. <SubTexture name='objects/buss_1' x='0'  y='0' width='0' height='0'/>
+pre. <SubTexture name='objects/granny_1' x='0'  y='0' width='0' height='0'/>
+pre. <SubTexture name='objects/sheep_1' x='0'  y='0' width='0' height='0'/>
+pre. </TextureAtlas>
+pre. </Atlas>
